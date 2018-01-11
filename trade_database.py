@@ -6,29 +6,40 @@ import datetime
 import time
 
 
-conn = sqlite3.connect('trade_record_v1.db')
+conn = sqlite3.connect('trade_record_v2.db')
 # conn = sqlite3.connect("test3.db")
 c = conn.cursor()
 
 # Create table
 
-# c.execute('''CREATE TABLE trades
-#          (Name text,
-#          ticker text,
-#          BatchID int,
-#          EntryDate text,
-#          long int,
-#          price real,
-#          shares real)''')
+c.execute('''CREATE TABLE trades
+         (Name text,
+         ticker text,
+         direction int,
+         entryDate text,
+         long int,
+         price real,
+         shares real,
+         account text)''')
 
+c.execute('''CREATE TABLE positions
+         (Name text,
+         ticker text,
+         direction int,
+         entryDate text,
+         long int,
+         price real,
+         shares real)''')
+
+conn.commit()
 # c.execute('''
 #
 # ''')
 
 # Insert a row of data
-# c.execute("INSERT INTO pulpeye VALUES ('Line 1', 1, 12, '2018-01-04 8:00:01', 124,1.56, 412)")
-# c.execute("INSERT INTO pulpeye VALUES ('Line 2', 2, 13, '2018-01-04 8:07:02', 134,1.66, 367)")
-# c.execute("CREATE UNIQUE INDEX batchindex ON pulpeye (BatchID)")
-
+c.execute("INSERT INTO trades VALUES ('Enbridge', 'ENB.to', 'long', '2017-11-14', 200, 45.11, 'CAD', 'TDRSP')")
+c.execute("INSERT INTO trades VALUES ('REIT', 'UN.to', 'long', '2017-11-15', 800, 11.41, 'CAD', 'TDRSP')")
+c.execute("INSERT INTO trades VALUES ('Patriot', 'PAT.V', 'long', '2017-12-13', 4000, 1.17, 'CAD', 'TDRSP')")
+c.execute("INSERT INTO trades VALUES ('Tesla', 'TSLA', 'long', '2018-1-4', 20, 313.60, 'US', 'TDRSP')")
 
 conn.commit()
